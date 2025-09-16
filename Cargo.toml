@@ -3,4 +3,33 @@ name = "rust-fuzzylogic"
 version = "0.1.0"
 edition = "2024"
 
+[features]
+default  = ["f64"]
+f32      = []
+f64      = []
+serde    = ["dep:serde"]
+parallel = ["dep:rayon"]
+
 [dependencies]
+serde = { version = "1", features = ["derive"], optional = true }
+rayon = { version = "1", optional = true }
+
+[[example]]
+name = "temperature"
+path = "examples/temperature.rs"
+required-features = ["parallel"]
+
+[[example]]
+name = "batch"
+path = "examples/batch.rs"
+required-features = ["parallel"]
+
+[[example]]
+name = "fuzzy c-means"
+path = "examples/FCM.rs"
+required-features = ["parallel"]
+
+[[example]]
+name = "GradientDescent"
+path = "examples/GradientDescent.rs"
+required-features = ["parallel"]
