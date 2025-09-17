@@ -1,6 +1,6 @@
 pub mod membership;
 
-//Temporary Module Decleration to avoid error 
+//Temporary Module Decleration to avoid error
 pub mod builder;
 pub mod defuzz;
 pub mod error;
@@ -10,6 +10,8 @@ pub mod sampler;
 pub mod system;
 pub mod term;
 pub mod variable;
+
+pub mod prelude;
 
 //pub use rust_fuzzylogic::triangular::Triangular;
 
