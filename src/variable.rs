@@ -82,8 +82,8 @@ impl Variable {
 #[cfg(test)]
 mod tests {
     use crate::error::FuzzyError;
-    use crate::membership::MembershipFn;
     use crate::membership::triangular::Triangular;
+    use crate::prelude::*;
     use crate::term::Term;
 
     /// `new` must reject invalid domain bounds (min >= max).

@@ -19,5 +19,8 @@ pub use crate::membership::MembershipFn;
 pub use crate::membership::trapezoidal::Trapezoidal;
 pub use crate::membership::{Gaussian, Triangular};
 
+// Fuzzy Set Operands
+pub use crate::ops::FuzzyOps;
+
 // Term wrapper around a boxed membership function
 pub use crate::term::Term;

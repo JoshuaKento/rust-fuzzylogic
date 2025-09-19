@@ -7,13 +7,19 @@ pub type Result<T> = std::result::Result<T, FuzzyError>;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 #[non_exhaustive]
-
 ///Basic errors that can occur in the rust-fuzzylogic library
 pub enum FuzzyError {
     BadArity,
     EmptyInput,
     TypeMismatch,
     OutOfBounds,
+    NotFound { space: MissingSpace, key: String },
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub enum MissingSpace {
+    Var,
+    Input,
 }
 
 impl fmt::Display for FuzzyError {
@@ -30,6 +36,16 @@ impl fmt::Display for FuzzyError {
             }
             FuzzyError::OutOfBounds => {
                 write!(f, "Out of bounds")
+            }
+            FuzzyError::NotFound { space, key } => {
+                write!(
+                    f,
+                    "Keys not found. {key} cannot be found in {}",
+                    match space {
+                        MissingSpace::Input => "Inputs",
+                        MissingSpace::Var => "Vars",
+                    }
+                )
             }
         }
     }
