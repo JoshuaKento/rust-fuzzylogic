@@ -1,6 +1,4 @@
 /target
 archive/
 memos/
-.gitignore
-.vscode/
-.claude/
+**/.*/
