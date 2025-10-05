@@ -1,13 +1,14 @@
 pub mod membership;
 
 //Temporary Module Decleration to avoid error
+pub mod aggregate;
+pub mod antecedent;
 pub mod builder;
 pub mod defuzz;
 pub mod error;
+pub mod mamdani;
 pub mod ops;
-pub mod rule;
 pub mod sampler;
-pub mod system;
 pub mod term;
 pub mod variable;
 

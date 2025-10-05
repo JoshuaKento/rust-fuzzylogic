@@ -13,7 +13,7 @@ pub struct Variable {
     max: Float,
 
     /// Mapping from term name to its labeled membership function wrapper.
-    terms: HashMap<String, Term>,
+    pub terms: HashMap<String, Term>,
 }
 impl Variable {
     /// Constructs a new variable, validating that `min < max`.
@@ -72,8 +72,13 @@ impl Variable {
         }
     }
 
+    /// Returns the range of domain for the membership function.(term)
+    ///
+    /// - retunrs `(min, max)`
+    pub fn domain(&self) -> (Float, Float) {
+        (self.min, self.max)
+    }
     //Optional helpers:
-    //pub fn domain(&self) -> (Float, Float)
     //pub fn names(&self) -> impl Iterator<Item=&str>
     //pub fn fuzzify(&self, x: Float) -> crate::error::Result<Vec<(String, Float)>> to get all memberships at x.
 }

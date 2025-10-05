@@ -116,13 +116,13 @@ mod tests {
         inputs.insert("temp", 7.5);
 
         // AST: (temp is hot) AND NOT (temp is cold)
-        let ast = crate::rule::Antecedent::And(
-            Box::new(crate::rule::Antecedent::Atom {
+        let ast = crate::antecedent::Antecedent::And(
+            Box::new(crate::antecedent::Antecedent::Atom {
                 var: "temp".into(),
                 term: "hot".into(),
             }),
-            Box::new(crate::rule::Antecedent::Not(Box::new(
-                crate::rule::Antecedent::Atom {
+            Box::new(crate::antecedent::Antecedent::Not(Box::new(
+                crate::antecedent::Antecedent::Atom {
                     var: "temp".into(),
                     term: "cold".into(),
                 },
@@ -134,13 +134,13 @@ mod tests {
         let cold = Triangular::new(-10.0, -5.0, 0.0).unwrap().eval(7.5);
         let expected = hot.min(1.0 - cold);
 
-        let y = crate::rule::eval_antecedent(&ast, &inputs, &vars).unwrap();
+        let y = crate::antecedent::eval_antecedent(&ast, &inputs, &vars).unwrap();
         assert!((y - expected).abs() < eps);
     }
 
     // RED: OR behavior using the same variable at a different crisp value.
     #[test]
-    fn red_antecedent_or_behavior() {
+    fn antecedent_or_behavior() {
         // Variable setup
         let mut temp = Variable::new(-10.0, 10.0).unwrap();
         temp.insert_term(
@@ -161,12 +161,12 @@ mod tests {
         inputs.insert("temp", -5.0);
 
         // AST: (temp is cold) OR (temp is hot)
-        let ast = crate::rule::Antecedent::Or(
-            Box::new(crate::rule::Antecedent::Atom {
+        let ast = crate::antecedent::Antecedent::Or(
+            Box::new(crate::antecedent::Antecedent::Atom {
                 var: "temp".into(),
                 term: "cold".into(),
             }),
-            Box::new(crate::rule::Antecedent::Atom {
+            Box::new(crate::antecedent::Antecedent::Atom {
                 var: "temp".into(),
                 term: "hot".into(),
             }),
@@ -177,7 +177,7 @@ mod tests {
         let hot = Triangular::new(0.0, 5.0, 10.0).unwrap().eval(-5.0);
         let expected = cold.max(hot);
 
-        let y = crate::rule::eval_antecedent(&ast, &inputs, &vars).unwrap();
+        let y = crate::antecedent::eval_antecedent(&ast, &inputs, &vars).unwrap();
         assert!((y - expected).abs() < crate::Float::EPSILON);
     }
 }

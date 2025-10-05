@@ -24,3 +24,6 @@ pub use crate::ops::FuzzyOps;
 
 // Term wrapper around a boxed membership function
 pub use crate::term::Term;
+
+//UniformSampling Functionality
+pub use crate::sampler::{Sampler, UniformSampler};
