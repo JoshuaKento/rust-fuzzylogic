@@ -4,7 +4,7 @@ use crate::{
     Float,
     aggregate::aggregation,
     defuzz::defuzzification,
-    error::{self, FuzzyError},
+    error::{self},
     mamdani::Rule,
     sampler::UniformSampler,
     variable::Variable,
@@ -53,9 +53,9 @@ impl RuleSpace {
     where
         KI: Eq + Hash + Borrow<str>,
     {
-        self.aggregate(input, sampler);
+        let _ = self.aggregate(input, sampler);
         let myu = std::mem::take(&mut self.myu);
-        defuzzification(myu, &self.vars)
+        Ok(defuzzification(myu, &self.vars)?)
     }
     //is there a nessecity?
     //pub fn consequent_keys() {}
