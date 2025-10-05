@@ -8,6 +8,7 @@ pub mod defuzz;
 pub mod error;
 pub mod mamdani;
 pub mod ops;
+pub mod rulespace;
 pub mod sampler;
 pub mod term;
 pub mod variable;

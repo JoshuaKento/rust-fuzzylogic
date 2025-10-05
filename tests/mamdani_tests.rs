@@ -2,12 +2,16 @@
 mod tests {
 
     use rust_fuzzylogic::{
-        aggregate::aggregation, antecedent::Antecedent, mamdani::Consequent, mamdani::Rule,
-        prelude::*, variable::Variable,
+        aggregate::aggregation,
+        antecedent::Antecedent,
+        defuzz::defuzzification,
+        mamdani::{Consequent, Rule},
+        prelude::*,
+        variable::Variable,
     };
     use std::collections::HashMap;
     #[test]
-    fn implication_aggregation_test() {
+    fn implication_to_defuzz_test() {
         let mut temp = Variable::new(-10.0, 10.0).unwrap();
         temp.insert_term(
             "cold",
@@ -111,8 +115,12 @@ mod tests {
 
         let rules: Vec<Rule> = vec![rule, rule_2];
 
-        let aggregate = aggregation(rules, &inputs, &vars, sampler);
+        let aggregate = aggregation(rules, &inputs, &vars, sampler).unwrap();
 
-        println!("{:?}", aggregate)
+        //println!("{:?}", aggregate);
+
+        let centroid = defuzzification(aggregate, &vars);
+
+        println!("{:?}", centroid);
     }
 }
