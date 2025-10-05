@@ -1,4 +1,4 @@
-use super::{Float, FuzzyError, MembershipFn, slope, validate_order};
+use super::{Float, MembershipFn, slope, validate_order};
 
 ///Struct for triangular membership function.
 ///Initialize by calling the new() function.
@@ -52,7 +52,10 @@ mod tests {
         let membership_func = Triangular::new(-1.0, 0.0, 1.0);
         let eps = crate::Float::EPSILON;
 
-        assert_eq!(Triangular::new(0.0, 0.0, -1.0), Err(FuzzyError::BadArity));
+        assert_eq!(
+            Triangular::new(0.0, 0.0, -1.0),
+            Err(crate::error::FuzzyError::BadArity)
+        );
 
         assert!((membership_func.clone().unwrap().eval(0.0) - 1.0).abs() < eps);
         assert!((membership_func.clone().unwrap().eval(0.5) - 0.5).abs() < eps);

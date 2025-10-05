@@ -1,4 +1,4 @@
-use super::{Float, FuzzyError, MembershipFn, slope, validate_order};
+use super::{Float, MembershipFn, slope, validate_order};
 
 ///Struct for trapezoidal membership function.
 ///Initialize by calling the new() function.
@@ -60,7 +60,7 @@ mod tests {
 
         assert_eq!(
             Trapezoidal::new(0.0, 0.0, -1.0, 0.0),
-            Err(FuzzyError::BadArity)
+            Err(crate::error::FuzzyError::BadArity)
         );
 
         assert!((membership_func.clone().unwrap().eval(0.0) - 1.0).abs() < eps);

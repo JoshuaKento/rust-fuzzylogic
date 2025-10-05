@@ -5,10 +5,9 @@ mod tests {
         aggregate::aggregation, antecedent::Antecedent, mamdani::Consequent, mamdani::Rule,
         prelude::*, variable::Variable,
     };
-    use std::{borrow::Borrow, collections::HashMap, hash::Hash};
-
+    use std::collections::HashMap;
     #[test]
-    fn aggregation_test() {
+    fn implication_aggregation_test() {
         let mut temp = Variable::new(-10.0, 10.0).unwrap();
         temp.insert_term(
             "cold",
@@ -21,28 +20,28 @@ mod tests {
         )
         .unwrap();
 
-        let mut Fanspeed = Variable::new(0.0, 10.0).unwrap();
-        Fanspeed
+        let mut fanpspeed = Variable::new(0.0, 10.0).unwrap();
+        fanpspeed
             .insert_term(
                 "High",
                 Term::new("High", Triangular::new(5.0, 7.5, 10.0).unwrap()),
             )
             .unwrap();
-        Fanspeed
+        fanpspeed
             .insert_term(
                 "Low",
                 Term::new("hot", Triangular::new(0.0, 2.5, 5.0).unwrap()),
             )
             .unwrap();
 
-        let mut Pumpspeed = Variable::new(0.0, 100.0).unwrap();
-        Pumpspeed
+        let mut pumpspeed = Variable::new(0.0, 100.0).unwrap();
+        pumpspeed
             .insert_term(
                 "High",
                 Term::new("High", Triangular::new(80.0, 90.0, 100.0).unwrap()),
             )
             .unwrap();
-        Pumpspeed
+        pumpspeed
             .insert_term(
                 "Low",
                 Term::new("hot", Triangular::new(0.0, 10.0, 20.0).unwrap()),
@@ -51,8 +50,8 @@ mod tests {
 
         let mut vars: HashMap<&str, Variable> = HashMap::new();
         vars.insert("temp", temp);
-        vars.insert("Fanspeed", Fanspeed);
-        vars.insert("Pumpspeed", Pumpspeed);
+        vars.insert("fanpspeed", fanpspeed);
+        vars.insert("pumpspeed", pumpspeed);
 
         let ast = Antecedent::And(
             Box::new(Antecedent::Atom {
@@ -77,22 +76,22 @@ mod tests {
         );
 
         let csqt_1 = Consequent {
-            var: "Fanspeed".to_string(),
+            var: "fanpspeed".to_string(),
             term: "High".to_string(),
         };
 
         let csqt_2 = Consequent {
-            var: "Pumpspeed".to_string(),
+            var: "pumpspeed".to_string(),
             term: "High".to_string(),
         };
 
         let csqt_3 = Consequent {
-            var: "Fanspeed".to_string(),
+            var: "fanpspeed".to_string(),
             term: "Low".to_string(),
         };
 
         let csqt_4 = Consequent {
-            var: "Pumpspeed".to_string(),
+            var: "pumpspeed".to_string(),
             term: "Low".to_string(),
         };
 
@@ -109,8 +108,6 @@ mod tests {
         inputs.insert("temp", 7.5);
 
         let sampler = UniformSampler::default();
-
-        let alpha = rule.activation(&inputs, &vars).unwrap();
 
         let rules: Vec<Rule> = vec![rule, rule_2];
 

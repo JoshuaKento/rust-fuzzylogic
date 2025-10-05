@@ -1,7 +1,7 @@
 //Agregation acros sets of rules
 
-use crate::{error::FuzzyError, mamdani::Rule, prelude::*, sampler, variable::Variable};
-use std::{borrow::Borrow, collections::HashMap, hash::Hash, result};
+use crate::{mamdani::Rule, prelude::*, variable::Variable};
+use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
 pub fn elements_max(data: &mut Vec<Float>, src: &Vec<Float>) {
     for (d, s) in data.iter_mut().zip(src) {

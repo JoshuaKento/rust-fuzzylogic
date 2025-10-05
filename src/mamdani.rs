@@ -1,7 +1,8 @@
+//mamdani style Implication and Consequent/Rule Behaviour
+
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
 #[cfg(feature = "inference-mamdani")]
-use crate::sampler;
 use crate::{
     antecedent::{Antecedent, eval_antecedent},
     error::{FuzzyError, MissingSpace},
