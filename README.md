@@ -1,6 +1,7 @@
 # rust-fuzzylogic
 
-A work-in-progress Rust crate that provides building blocks for authoring fuzzy inference systems.
+
+A Rust crate that provides building blocks for authoring fuzzy inference systems.
 The project aims to make it easy to describe linguistic variables, membership functions, and rule
 bases while keeping room for experimentation with multiple aggregation operators and inference
 strategies.
@@ -70,21 +71,10 @@ time:
 - `ops-dyn` — use dynamic dispatch for selecting operators at runtime.
 - `inference-mamdani` — compile the Mamdani inference engine implementation.
 
-## Examples
-
-Example binaries will live under the `examples/` directory. They are not yet implemented, but the
-plan is to showcase tasks such as temperature control, batch processing, fuzzy C-means clustering,
-and gradient-descent tuning of membership functions. You will be able to run them with Cargo once
-they are published:
-
-```bash
-cargo run --example temperature
-```
-
 ## Roadmap
 
-- [ ] Flesh out membership functions and sampling utilities.
-- [ ] Implement the Mamdani inference pipeline end-to-end.
+- [ ] Make some example scripts under examles/, benches/.
+- [ ] Implement comprehensive tests.
 - [ ] Document the builder APIs and provide a quick start guide.
 - [ ] Publish the crate and examples for real-world testing.
 
