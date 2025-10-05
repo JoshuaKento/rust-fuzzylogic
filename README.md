@@ -1,5 +1,6 @@
 # rust-fuzzylogic
 
+
 A Rust crate that provides building blocks for authoring fuzzy inference systems.
 The project aims to make it easy to describe linguistic variables, membership functions, and rule
 bases while keeping room for experimentation with multiple aggregation operators and inference

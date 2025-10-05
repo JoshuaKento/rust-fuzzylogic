@@ -1,4 +1,4 @@
-//mamdani style Implication and Consequent/Rule Behaviour
+// Mamdani-style implication and rule behavior primitives.
 
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
@@ -11,11 +11,13 @@ use crate::{
     variable::Variable,
 };
 
+/// Implication modes supported by a Mamdani rule.
 pub enum Implication {
     Clip,
     Product,
 }
 
+/// Output clause of a fuzzy rule referencing a linguistic variable and term.
 pub struct Consequent {
     pub var: String,
     pub term: String,
@@ -23,6 +25,7 @@ pub struct Consequent {
     //pub imp: Implication,
 }
 
+/// Full fuzzy rule pairing an antecedent with one or more consequents.
 pub struct Rule {
     pub antecedent: Antecedent,
     pub consequent: Vec<Consequent>,
@@ -31,6 +34,7 @@ pub struct Rule {
 //Mamdani Inference Engine
 #[cfg(feature = "inference-mamdani")]
 impl Rule {
+    /// Evaluate the antecedent against crisp input values to obtain activation.
     pub fn activation<KI, KV>(
         &self,
         input: &HashMap<KI, Float>,
@@ -43,6 +47,7 @@ impl Rule {
         eval_antecedent(&self.antecedent, input, vars)
     }
 
+    /// Apply the selected implication operator to produce discretized membership outputs.
     pub fn implicate<KV>(
         &self,
         alpha: Float,

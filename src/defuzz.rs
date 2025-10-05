@@ -1,7 +1,8 @@
-//Possible Defuzz methods => Bisecctor of Area, Centroid, ...
+// Defuzzification utilities for collapsing aggregated membership values.
 use crate::{prelude::*, variable::Variable};
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
+/// Defuzzify aggregated membership samples using the centroid of area method.
 pub fn defuzzification<KV>(
     myu: HashMap<String, Vec<Float>>,
     vars: &HashMap<KV, Variable>,

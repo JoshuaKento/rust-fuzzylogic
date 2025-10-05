@@ -10,7 +10,7 @@ use crate::{
     variable::Variable,
 };
 
-//#[derive()]
+// Container for fuzzy variables, rules, and intermediate membership data.
 pub struct RuleSpace {
     pub vars: HashMap<String, Variable>,
     pub myu: HashMap<String, Vec<Float>>,
@@ -18,6 +18,7 @@ pub struct RuleSpace {
 }
 
 impl RuleSpace {
+    /// Create a rule space with the supplied variables and rules.
     pub fn new(self, vars: HashMap<String, Variable>, rules: Vec<Rule>) -> Self {
         return Self {
             vars: vars,
@@ -26,10 +27,12 @@ impl RuleSpace {
         };
     }
 
+    /// Append additional rules to the existing rule set.
     pub fn add_rules(mut self, rules: &mut Vec<Rule>) {
         self.rules.append(rules);
     }
 
+    /// Run the aggregation step for all rules with the provided crisp inputs.
     pub fn aggregate<KI>(
         &mut self,
         input: &HashMap<KI, Float>,
@@ -45,6 +48,7 @@ impl RuleSpace {
         Ok(())
     }
 
+    /// Aggregate and then defuzzify each output variable using the supplied sampler.
     pub fn defuzzificate<KI>(
         &mut self,
         input: &HashMap<KI, Float>,
