@@ -1,13 +1,13 @@
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
 use crate::{
-    Float,
     aggregate::aggregation,
     defuzz::defuzzification,
     error::{self},
     mamdani::Rule,
     sampler::UniformSampler,
     variable::Variable,
+    Float,
 };
 
 // Container for fuzzy variables, rules, and intermediate membership data.

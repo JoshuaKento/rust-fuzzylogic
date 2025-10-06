@@ -1,6 +1,6 @@
 // Variable: crisp scalar with domain and named fuzzy terms.
 // This file defines the `Variable` type plus red tests for its API.
-use crate::{Float, error::FuzzyError, membership::MembershipFn, term::Term};
+use crate::{error::FuzzyError, membership::MembershipFn, term::Term, Float};
 
 use std::collections::HashMap;
 
