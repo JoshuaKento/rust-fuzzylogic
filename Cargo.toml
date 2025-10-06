@@ -1,7 +1,16 @@
 [package]
 name = "rust-fuzzylogic"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
+description = "Building blocks for authoring fuzzy inference systems in Rust."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-org/rust-fuzzylogic"
+documentation = "https://docs.rs/rust-fuzzylogic"
+homepage = "https://github.com/your-org/rust-fuzzylogic"
+readme = "README.md"
+keywords = ["fuzzy", "logic", "ai", "inference"]
+categories = ["algorithms", "science"]
+rust-version = "1.74"
 
 [features]
 default  = ["f64", "ops-dyn", "inference-mamdani"]
@@ -33,11 +42,11 @@ path = "examples/batch.rs"
 required-features = ["parallel"]
 
 [[example]]
-name = "fuzzy c-means"
-path = "examples/FCM.rs"
+name = "fuzzy-c-means"
+path = "examples/fuzzy_c_means.rs"
 required-features = ["parallel"]
 
 [[example]]
-name = "GradientDescent"
-path = "examples/GradientDescent.rs"
+name = "gradient-descent"
+path = "examples/gradient_descent.rs"
 required-features = ["parallel"]
