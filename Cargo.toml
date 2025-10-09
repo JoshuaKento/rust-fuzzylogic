@@ -1,6 +1,6 @@
 [package]
 name = "rust-fuzzylogic"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "Building blocks for authoring fuzzy inference systems in Rust."
 license = "MIT OR Apache-2.0"
@@ -11,7 +11,14 @@ readme = "README.md"
 keywords = ["fuzzy", "logic", "ai", "inference"]
 categories = ["algorithms", "science"]
 rust-version = "1.74"
- exclude = ["target/**"]
+include = [
+  "Cargo.toml",
+  "src/**",
+  "build.rs",
+  "README*",
+  "LICENSE*",
+  "CHANGELOG*"
+]
 
 [features]
 default  = ["f64", "ops-dyn", "inference-mamdani"]

@@ -1,2 +1,2 @@
-createSrcSidebar('[["rust_fuzzylogic",["",[["membership",[],["gaussian.rs","mod.rs","trapezoidal.rs","triangular.rs"]]],["aggregate.rs","antecedent.rs","builder.rs","defuzz.rs","error.rs","lib.rs","mamdani.rs","ops.rs","prelude.rs","rulespace.rs","sampler.rs","term.rs","variable.rs"]]]]');
-//{"start":19,"fragment_lengths":[267]}
+createSrcSidebar('[["rust_fuzzylogic",["",[["membership",[],["gaussian.rs","mod.rs","trapezoidal.rs","triangular.rs"]]],["aggregate.rs","antecedent.rs","builder.rs","defuzz.rs","error.rs","lib.rs","mamdani.rs","ops.rs","prelude.rs","rulespace.rs","sampler.rs","system.rs","term.rs","variable.rs"]]],["rust_fuzzylogic",["",[["membership",[],["gaussian.rs","mod.rs","trapezoidal.rs","triangular.rs"]]],["aggregate.rs","antecedent.rs","builder.rs","defuzz.rs","error.rs","lib.rs","mamdani.rs","ops.rs","prelude.rs","rulespace.rs","sampler.rs","term.rs","variable.rs"]]]]');
+//{"start":19,"fragment_lengths":[279,268]}
