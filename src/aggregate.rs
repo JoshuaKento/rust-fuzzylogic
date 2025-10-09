@@ -12,10 +12,10 @@ pub fn elements_max(data: &mut Vec<Float>, src: &Vec<Float>) {
 
 /// Aggregate the contributions of all rules into output membership functions.
 pub fn aggregation<KI, KV>(
-    rules: Vec<Rule>,
+    rules: &[Rule],
     input: &HashMap<KI, Float>,
     vars: &HashMap<KV, Variable>,
-    sampler: UniformSampler,
+    sampler: &UniformSampler,
 ) -> Result<HashMap<String, Vec<Float>>>
 where
     KI: Eq + Hash + Borrow<str>,

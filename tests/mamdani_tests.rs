@@ -11,7 +11,7 @@ mod tests {
     };
     use std::collections::HashMap;
     #[test]
-    fn implication_to_defuzz_test() {
+    fn end_to_end_test() {
         let mut temp = Variable::new(-10.0, 10.0).unwrap();
         temp.insert_term(
             "cold",
@@ -115,11 +115,11 @@ mod tests {
 
         let rules: Vec<Rule> = vec![rule, rule_2];
 
-        let aggregate = aggregation(rules, &inputs, &vars, sampler).unwrap();
+        let aggregate = aggregation(&rules, &inputs, &vars, &sampler).unwrap();
 
         //println!("{:?}", aggregate);
 
-        let centroid = defuzzification(aggregate, &vars);
+        let centroid = defuzzification(&aggregate, &vars);
 
         println!("{:?}", centroid);
     }
