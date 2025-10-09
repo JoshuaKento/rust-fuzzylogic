@@ -7,7 +7,7 @@ Semantic Versioning. Prior to 1.0.0, MINOR (0.x.0) may include breaking
 changes, while PATCH (0.1.x) is reserved for backwards-compatible fixes
 and small additions.
 
-## [UNRELEASED]
+## [0.1.1]
 
 ### Added
 
@@ -50,6 +50,6 @@ and small additions.
 - Public API is not stabilized and may change between 0.x releases.
 
 <!-- Update links if the repository slug changes. -->
-[UNRELEASED]: https://github.com/joushuakent/rust-fuzzylogic/compare/v0.1.0...HEAD
+[0.1.1]: https://github.com/joushuakent/rust-fuzzylogic/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/joushuakent/rust-fuzzylogic/releases/tag/v0.1.0
 
