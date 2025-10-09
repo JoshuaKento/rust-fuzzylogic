@@ -21,7 +21,7 @@ autoexamples = false
 autotests = false
 autobenches = false
 description = "Building blocks for authoring fuzzy inference systems in Rust."
-homepage = "https://github.com/your-org/rust-fuzzylogic"
+homepage = "https://github.com/joushuakent/rust-fuzzylogic"
 documentation = "https://docs.rs/rust-fuzzylogic"
 readme = "README.md"
 keywords = [
@@ -35,7 +35,7 @@ categories = [
     "science",
 ]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/your-org/rust-fuzzylogic"
+repository = "https://github.com/joushuakent/rust-fuzzylogic"
 
 [features]
 default = [
@@ -80,10 +80,6 @@ required-features = ["parallel"]
 name = "temperature"
 path = "examples/temperature.rs"
 required-features = ["parallel"]
-
-[[test]]
-name = "end_to_end"
-path = "tests/end_to_end.rs"
 
 [[test]]
 name = "mamdani_tests"

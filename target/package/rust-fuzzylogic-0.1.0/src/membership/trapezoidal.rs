@@ -1,4 +1,4 @@
-use super::{Float, MembershipFn, slope, validate_order};
+use super::{slope, validate_order, Float, MembershipFn};
 
 ///Struct for trapezoidal membership function.
 ///Initialize by calling the new() function.

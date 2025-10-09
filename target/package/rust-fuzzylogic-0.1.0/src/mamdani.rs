@@ -4,7 +4,7 @@ use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
 #[cfg(feature = "inference-mamdani")]
 use crate::{
-    antecedent::{Antecedent, eval_antecedent},
+    antecedent::{eval_antecedent, Antecedent},
     error::{FuzzyError, MissingSpace},
     prelude::*,
     sampler::UniformSampler,

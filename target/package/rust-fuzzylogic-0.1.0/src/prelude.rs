@@ -11,12 +11,12 @@
 //! `pub mod prelude;` to make it available to users.
 
 // Core scalar and error types
-pub use crate::Float;
 pub use crate::error::{FuzzyError, Result};
+pub use crate::Float;
 
 // Membership trait and built-in shapes
-pub use crate::membership::MembershipFn;
 pub use crate::membership::trapezoidal::Trapezoidal;
+pub use crate::membership::MembershipFn;
 pub use crate::membership::{Gaussian, Triangular};
 
 // Fuzzy Set Operands

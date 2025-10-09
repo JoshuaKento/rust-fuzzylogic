@@ -1,4 +1,4 @@
-use crate::{Float, error::FuzzyError, prelude::*};
+use crate::{error::FuzzyError, prelude::*, Float};
 
 pub trait Sampler {
     //Trait shape: Returning Result<Vec<Float>> is fine.
@@ -52,9 +52,9 @@ impl Sampler for UniformSampler {
 
 #[cfg(test)]
 mod tests {
-    use crate::Float;
     use crate::error::FuzzyError;
     use crate::sampler::{Sampler, UniformSampler};
+    use crate::Float;
 
     #[test]
     fn uniform_sampler_two_points_inclusive_endpoints() {
