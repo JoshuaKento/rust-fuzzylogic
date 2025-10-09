@@ -10,6 +10,7 @@ pub mod mamdani;
 pub mod ops;
 pub mod rulespace;
 pub mod sampler;
+pub mod system;
 pub mod term;
 pub mod variable;
 

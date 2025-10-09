@@ -4,27 +4,27 @@
 <a href=#4 id=4 data-nosnippet>4</a>
 <a href=#5 id=5 data-nosnippet>5</a><span class="doccomment">/// Defuzzify aggregated membership samples using the centroid of area method.
 <a href=#6 id=6 data-nosnippet>6</a></span><span class="kw">pub fn </span>defuzzification&lt;KV&gt;(
-<a href=#7 id=7 data-nosnippet>7</a>    myu: HashMap&lt;String, Vec&lt;Float&gt;&gt;,
+<a href=#7 id=7 data-nosnippet>7</a>    agg_memberships: <span class="kw-2">&amp;</span>HashMap&lt;String, Vec&lt;Float&gt;&gt;,
 <a href=#8 id=8 data-nosnippet>8</a>    vars: <span class="kw-2">&amp;</span>HashMap&lt;KV, Variable&gt;,
 <a href=#9 id=9 data-nosnippet>9</a>) -&gt; <span class="prelude-ty">Result</span>&lt;HashMap&lt;String, Float&gt;&gt;
 <a href=#10 id=10 data-nosnippet>10</a><span class="kw">where
 <a href=#11 id=11 data-nosnippet>11</a>    </span>KV: Eq + Hash + Borrow&lt;str&gt;,
 <a href=#12 id=12 data-nosnippet>12</a>{
 <a href=#13 id=13 data-nosnippet>13</a>    <span class="kw">let </span><span class="kw-2">mut </span>result_map: HashMap&lt;String, Float&gt; = HashMap::new();
-<a href=#14 id=14 data-nosnippet>14</a>    <span class="kw">for </span>(i, j) <span class="kw">in </span>myu {
+<a href=#14 id=14 data-nosnippet>14</a>    <span class="kw">for </span>(i, j) <span class="kw">in </span>agg_memberships {
 <a href=#15 id=15 data-nosnippet>15</a>        <span class="kw">let </span>num = j.len();
 <a href=#16 id=16 data-nosnippet>16</a>        <span class="kw">let </span>(var_min, var_max) = vars.get(<span class="kw-2">&amp;</span>i).ok_or(FuzzyError::EmptyInput)<span class="question-mark">?</span>.domain();
 <a href=#17 id=17 data-nosnippet>17</a>        <span class="kw">let </span>step = (var_max - var_min) / (num <span class="kw">as </span>Float - <span class="number">1.0</span>);
 <a href=#18 id=18 data-nosnippet>18</a>
-<a href=#19 id=19 data-nosnippet>19</a>        <span class="kw">let </span>(<span class="kw-2">mut </span>sum_myux, <span class="kw-2">mut </span>sum_myu): (Float, Float) = (<span class="number">0.0</span>, <span class="number">0.0</span>);
+<a href=#19 id=19 data-nosnippet>19</a>        <span class="kw">let </span>(<span class="kw-2">mut </span>sum_agg_memberships_x, <span class="kw-2">mut </span>sum_agg_memberships): (Float, Float) = (<span class="number">0.0</span>, <span class="number">0.0</span>);
 <a href=#20 id=20 data-nosnippet>20</a>        <span class="kw">let </span><span class="kw-2">mut </span>l: usize = <span class="number">0</span>;
 <a href=#21 id=21 data-nosnippet>21</a>        <span class="kw">for </span>k <span class="kw">in </span>j {
 <a href=#22 id=22 data-nosnippet>22</a>            <span class="kw">let </span>x = var_min + step * l <span class="kw">as </span>Float;
-<a href=#23 id=23 data-nosnippet>23</a>            sum_myux = sum_myux + (x * k);
-<a href=#24 id=24 data-nosnippet>24</a>            sum_myu = sum_myu + k;
+<a href=#23 id=23 data-nosnippet>23</a>            sum_agg_memberships_x = sum_agg_memberships_x + (x * k);
+<a href=#24 id=24 data-nosnippet>24</a>            sum_agg_memberships = sum_agg_memberships + k;
 <a href=#25 id=25 data-nosnippet>25</a>            l += <span class="number">1</span>;
 <a href=#26 id=26 data-nosnippet>26</a>        }
-<a href=#27 id=27 data-nosnippet>27</a>        result_map.insert(i, sum_myux / sum_myu);
+<a href=#27 id=27 data-nosnippet>27</a>        result_map.insert(i.to_string(), sum_agg_memberships_x / sum_agg_memberships);
 <a href=#28 id=28 data-nosnippet>28</a>    }
 <a href=#29 id=29 data-nosnippet>29</a>
 <a href=#30 id=30 data-nosnippet>30</a>    <span class="kw">return </span><span class="prelude-val">Ok</span>(result_map);
