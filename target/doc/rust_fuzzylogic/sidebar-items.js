@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["aggregate","antecedent","builder","defuzz","error","mamdani","membership","ops","prelude","rulespace","sampler","term","variable"],"type":["Float"]};
