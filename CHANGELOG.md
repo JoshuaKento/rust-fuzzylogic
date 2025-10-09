@@ -10,26 +10,19 @@ and small additions.
 ## [UNRELEASED]
 
 ### Added
-- Added Basic Documention by way of "cargo doc".
+
+- Crate-level and module documentation to improve API discoverability by way of "crate doc".
 
 ### Changed
-- Changed cargo.toml so that the crate upon publication only includes the necessary components.(e.g. excludes tests, examples... etc)
+
+- Packaging: restrict published crate contents via Cargo.toml to exclude tests, examples, benches, and other development-only files.
 
 ### Fixed
-- Fixed the logic of defuzz.rs, rulespace.rs, aggregate.rs where the Rules Vector...etc would be erased after agrragate and defuzzify due to using mem::take, to borrowing. 
 
-- fixed mamdani_test.rs according to the API change of above fix.
+- Prevent rule vectors from being cleared during aggregation/defuzzification by replacing uses of mem::take with borrowed access in defuzz.rs, rulespace.rs, and aggregate.rs.
+- Update mamdani_test.rs to align with the above API changes.
 
-### Deprecated
--
-
-### Removed
--
-
-### Security
--
-
-## [0.1.0] - 2025-10-XX
+## [0.1.0] - 2025-10-09
 
 ### Added
 - Initial crate scaffolding and public module layout: `membership`, `variable`, `term`, `rulespace`,
@@ -57,6 +50,6 @@ and small additions.
 - Public API is not stabilized and may change between 0.x releases.
 
 <!-- Update links if the repository slug changes. -->
-[UNRELEASED]: https://github.com/joushuakent/rust-fuzzylogic/compare/UNRELEASED
+[UNRELEASED]: https://github.com/joushuakent/rust-fuzzylogic/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/joushuakent/rust-fuzzylogic/releases/tag/v0.1.0
 
