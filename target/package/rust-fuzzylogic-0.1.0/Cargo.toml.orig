@@ -11,6 +11,7 @@ readme = "README.md"
 keywords = ["fuzzy", "logic", "ai", "inference"]
 categories = ["algorithms", "science"]
 rust-version = "1.74"
+ exclude = ["target/**"]
 
 [features]
 default  = ["f64", "ops-dyn", "inference-mamdani"]
