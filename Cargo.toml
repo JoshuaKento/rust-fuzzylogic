@@ -4,9 +4,9 @@ version = "0.1.1"
 edition = "2021"
 description = "Building blocks for authoring fuzzy inference systems in Rust."
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/joushuakent/rust-fuzzylogic"
+repository = "https://github.com/joushuakento/rust-fuzzylogic"
 documentation = "https://docs.rs/rust-fuzzylogic"
-homepage = "https://github.com/joushuakent/rust-fuzzylogic"
+homepage = "https://github.com/joushuakento/rust-fuzzylogic"
 readme = "README.md"
 keywords = ["fuzzy", "logic", "ai", "inference"]
 categories = ["algorithms", "science"]
@@ -21,7 +21,7 @@ include = [
 ]
 
 [features]
-default  = ["f64", "ops-dyn", "inference-mamdani"]
+default  = ["f64", "ops-dyn"]
 f32      = []
 f64      = []
 serde    = ["dep:serde"]
@@ -30,7 +30,7 @@ ops-minmax = []
 ops-product = []
 ops-lukasiewicz = []
 ops-dyn = [] # enables runtime enum/trait-object API
-inference-mamdani = []
+#inference-mamdani = []
 
 [profile.release]
 debug = true

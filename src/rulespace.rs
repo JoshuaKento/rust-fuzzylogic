@@ -12,9 +12,9 @@ use crate::{
 
 // Container for fuzzy variables, rules, and intermediate membership data.
 pub struct RuleSpace {
-    pub vars: HashMap<String, Variable>,
-    pub agg_memberships: HashMap<String, Vec<Float>>,
-    pub rules: Vec<Rule>,
+    vars: HashMap<String, Variable>,
+    agg_memberships: HashMap<String, Vec<Float>>,
+    rules: Vec<Rule>,
 }
 
 impl RuleSpace {
@@ -32,8 +32,13 @@ impl RuleSpace {
     }
 
     /// Append additional rules to the existing rule set.
-    pub fn add_rules(&mut self, rules: &mut Vec<Rule>) {
-        self.rules.append(rules);
+    pub fn add_rules(&mut self, rules: &mut Vec<Rule>) -> error::Result<&mut Self> {
+        if rules.is_empty() {
+            Err(FuzzyError::EmptyInput)
+        } else {
+            let _ = &mut self.rules.append(rules);
+            return Ok(self);
+        }
     }
 
     /// Run the aggregation step for all rules with the provided crisp inputs.

@@ -1,5 +1,5 @@
 // Defuzzification utilities for collapsing aggregated membership values.
-use crate::{prelude::*, variable::Variable};
+use crate::{error::MissingSpace, prelude::*, variable::Variable};
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
 /// Defuzzify aggregated membership samples using the centroid of area method.
@@ -13,7 +13,17 @@ where
     let mut result_map: HashMap<String, Float> = HashMap::new();
     for (i, j) in agg_memberships {
         let num = j.len();
-        let (var_min, var_max) = vars.get(&i).ok_or(FuzzyError::EmptyInput)?.domain();
+        if num < 2 {
+            return Err(FuzzyError::BadArity);
+        }
+
+        let (var_min, var_max) = vars
+            .get(&i)
+            .ok_or(FuzzyError::NotFound {
+                space: MissingSpace::Var,
+                key: i.to_string(),
+            })?
+            .domain();
         let step = (var_max - var_min) / (num as Float - 1.0);
 
         let (mut sum_agg_memberships_x, mut sum_agg_memberships): (Float, Float) = (0.0, 0.0);
