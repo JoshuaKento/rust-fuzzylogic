@@ -34,7 +34,7 @@ Once the API stabilises you will be able to add it as a Git dependency in your `
 
 ```toml
 [dependencies]
-rust-fuzzylogic = { git = "https://github.com/joshuakent/rust-fuzzylogic" }
+rust-fuzzylogic = { git = "https://github.com/joushuakento/rust-fuzzylogic" }
 ```
 
 After the crate reaches its first release the dependency line will become:
@@ -49,7 +49,7 @@ rust-fuzzylogic = "0.1"
 If you would like to contribute, clone the repository and open it with your favourite editor:
 
 ```bash
-git clone https://github.com/joshuakent/rust-fuzzylogic.git
+git clone https://github.com/joushuakento/rust-fuzzylogic.git
 cd rust-fuzzylogic
 ```
 

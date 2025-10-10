@@ -2,7 +2,7 @@
 
 use std::{borrow::Borrow, collections::HashMap, hash::Hash};
 
-#[cfg(feature = "inference-mamdani")]
+//#[cfg(feature = "inference-mamdani")]
 use crate::{
     antecedent::{eval_antecedent, Antecedent},
     error::{FuzzyError, MissingSpace},
@@ -10,12 +10,6 @@ use crate::{
     sampler::UniformSampler,
     variable::Variable,
 };
-
-/// Implication modes supported by a Mamdani rule.
-pub enum Implication {
-    Clip,
-    Product,
-}
 
 /// Output clause of a fuzzy rule referencing a linguistic variable and term.
 pub struct Consequent {
@@ -32,7 +26,7 @@ pub struct Rule {
 }
 
 //Mamdani Inference Engine
-#[cfg(feature = "inference-mamdani")]
+//#[cfg(feature = "inference-mamdani")]
 impl Rule {
     /// Evaluate the antecedent against crisp input values to obtain activation.
     pub fn activation<KI, KV>(
@@ -66,11 +60,11 @@ impl Rule {
                 .get(&self.consequent[i].var.as_str())
                 .ok_or(FuzzyError::NotFound {
                     space: MissingSpace::Var,
-                    key: self.consequent[i].term.clone(),
+                    key: self.consequent[i].var.clone(),
                 })?
                 .domain();
 
-            let step = (dom_max - dom_min) / sampler.n as Float;
+            let step = (dom_max - dom_min) / (sampler.n - 1) as Float;
 
             for k in 0..sampler.n {
                 let x = dom_min + (k as Float * step);
