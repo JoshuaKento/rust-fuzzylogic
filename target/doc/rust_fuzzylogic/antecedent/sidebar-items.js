@@ -1,1 +1,0 @@
-window.SIDEBAR_ITEMS = {"enum":["Antecedent"],"fn":["eval_antecedent"]};
