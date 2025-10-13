@@ -7,6 +7,25 @@ Semantic Versioning. Prior to 1.0.0, MINOR (0.x.0) may include breaking
 changes, while PATCH (0.1.x) is reserved for backwards-compatible fixes
 and small additions.
 
+## [Unreleased]
+### Added
+- 
+
+### Changed
+- 
+
+### Deprecated
+- for soon-to-be removed features.
+  
+### Removed
+-  for now removed features.
+
+### Fixed
+-  for any bug fixes.
+
+### Security 
+- in case of vulnerabilities.
+
 ## [0.1.1] - 2025-10-10
 
 ### Added
