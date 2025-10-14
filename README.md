@@ -8,7 +8,7 @@ This Project is still WIP and any form of feedback or contribution is very much 
 
 ## Project status
 The repository currently focuses on laying down the module structure of the crate.
-At the current stage, It currently implements Type‑1 fuzzy sets and a Mamdani inference engine. The project also plans to add Takagi–Sugeno inference for Type‑1 sets.
+At this stage, it implements Type‑1 fuzzy sets and a Mamdani inference engine. The project also plans to add Takagi–Sugeno inference for Type‑1 sets.
 
 Several source files exist as stubs and will be fleshed out in future iterations. Even though the public API is not ready for consumption yet, the layout already highlights the intended responsibilities of each
 module:
@@ -30,6 +30,7 @@ module:
 ## Getting started
 
 The library is published on crates.io: https://crates.io/crates/rust-fuzzylogic
+
 You can import the library as a dependency in `Cargo.toml` from Git or crates.io:
 
 crates.io:
@@ -49,10 +50,10 @@ rust-fuzzylogic = { git = "https://github.com/joushuakento/rust-fuzzylogic" }
 You can find the documentation of the latest release here:
 https://docs.rs/rust-fuzzylogic/latest
 
-Alternatively, If you are working from the unreleased version in the gitHub repository,
+Alternatively, If you are working from the unreleased version in the GitHub repository,
 you can run `cargo doc` locally to generate documentation.
 
-You can see the changelog here: https://github.com/joushuakento/rust-fuzzylogic/CHANGELOG.md
+You can see the changelog here: https://github.com/JoshuaKento/rust-fuzzylogic/blob/main/CHANGELOG.md
 
 ## Development
 
@@ -84,7 +85,7 @@ time:
 
 - [ ] Make some example scripts under examples/, benches/.
 - [ ] Implement comprehensive tests.
-- [ ] Document the builder APIs and provide a quick start guide.
+- [ ] Document the system APIs and provide a quick start guide.
 - [x] Publish the crate and examples for real-world testing.
 
 ---
