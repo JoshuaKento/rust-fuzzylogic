@@ -20,6 +20,7 @@ pub enum FuzzyError {
 pub enum MissingSpace {
     Var,
     Input,
+    Term,
 }
 
 impl fmt::Display for FuzzyError {
@@ -44,6 +45,7 @@ impl fmt::Display for FuzzyError {
                     match space {
                         MissingSpace::Input => "Inputs",
                         MissingSpace::Var => "Vars",
+                        MissingSpace::Term => "Terms",
                     }
                 )
             }

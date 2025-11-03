@@ -68,6 +68,7 @@ use crate::{
 /// - `rules`: the rule base defining inference behavior.
 /// - `agg_memberships`: aggregated membership samples per output variable from
 ///   the most recent call to `aggregate`/`defuzzify`.
+#[deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
 pub struct RuleSpace {
     vars: HashMap<String, Variable>,
     agg_memberships: HashMap<String, Vec<Float>>,
@@ -79,6 +80,7 @@ impl RuleSpace {
     ///
     /// Errors
     /// - `FuzzyError::EmptyInput` if `vars` or `rules` is empty.
+    #[deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
     pub fn new(vars: HashMap<String, Variable>, rules: Vec<Rule>) -> error::Result<Self> {
         if vars.is_empty() || rules.is_empty() {
             return Err(FuzzyError::EmptyInput);
@@ -97,6 +99,7 @@ impl RuleSpace {
     ///
     /// Errors
     /// - `FuzzyError::EmptyInput` if `rules` is empty.
+    #[deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
     pub fn add_rules(&mut self, rules: &mut Vec<Rule>) -> error::Result<&mut Self> {
         if rules.is_empty() {
             Err(FuzzyError::EmptyInput)
@@ -116,6 +119,7 @@ impl RuleSpace {
     ///
     /// Errors
     /// - Propagates errors from rule activation/implication and aggregation.
+    #[deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
     pub fn aggregate<KI>(
         &mut self,
         input: &HashMap<KI, Float>,
@@ -141,6 +145,7 @@ impl RuleSpace {
     ///
     /// Errors
     /// - Propagates any error from aggregation or defuzzification.
+    #[deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
     pub fn defuzzify<KI>(
         &mut self,
         input: &HashMap<KI, Float>,
@@ -156,3 +161,14 @@ impl RuleSpace {
     //is there a nessecity?
     //pub fn consequent_keys() {}
 }
+#![deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")] 
+//! Deprecated: RuleSpace has been superseded by `system::System` and
+//! `system::SystemBuilder`.
+//!
+//! As of 0.2.0, prefer building fuzzy inference systems via the `System`
+//! API, which validates rules on construction and provides a cohesive
+//! builder for variables, terms, and rules.
+//!
+//! This module remains for backward compatibility and will be removed in a
+//! future release.
+//!

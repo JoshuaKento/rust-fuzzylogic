@@ -7,30 +7,35 @@ Semantic Versioning. Prior to 1.0.0, MINOR (0.x.0) may include breaking
 changes, while PATCH (0.1.x) is reserved for backwards-compatible fixes
 and small additions.
 
-## [Unreleased]
+## [0.2.0] - 2025/11/03
 ### Added
-- 
+- Added `Term` variants for MissingSpace struct to be used in `FuzzyError::NotFound`. (src/Error.rs)
+- Added a System struct for handling Rules and Variables(terms and correspondin MFs) comprehensively. (src/System.rs)
+- Added a Builder struct for above System struct for ease of initializing Rule Systems. (src/System.rs)
+- Updated README.
+- Runtime Validation for units `mamdani`,`antecedent`,`system` regarding rules.
 
 ### Changed
-- 
+- Refactored and Added documentation to Modules [`Rulespace`, `Defuzz`, `Mamdanin`, `Aggregate`]
+- Struct `Rule` and `Consequent` now derive `Clone` (src/mamdani.rs)
 
 ### Deprecated
-- for soon-to-be removed features.
+- Module `Rulespace`'s functionality will be integrated into the `System` Module. (src/rulespace.rs)
   
 ### Removed
--  for now removed features.
+-  Removed some unnecessary folders (target/, .vscode/)
 
 ### Fixed
--  for any bug fixes.
+-  N/A
 
 ### Security 
-- in case of vulnerabilities.
+- N/A
 
 ## [0.1.1] - 2025-10-10
 
 ### Added
 
-- Crate-level and module documentation to improve API discoverability by way of "crate doc".
+- Crate-level and module documentation to improve API discoverability by way of `crate doc`.
 
 ### Changed
 
@@ -69,6 +74,5 @@ and small additions.
 - Public API is not stabilized and may change between 0.x releases.
 
 <!-- Update links if the repository slug changes. -->
+[0.2.0]: https://github.com/joushuakento/rust-fuzzylogic/releases/tag/v0.2.0
 [0.1.1]: https://github.com/joushuakento/rust-fuzzylogic/releases/tag/v0.1.1
-[0.1.0]: NOT_RELEASED
-

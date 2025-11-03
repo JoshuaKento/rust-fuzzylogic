@@ -68,11 +68,47 @@ use crate::{
 /// labeled membership functions/terms (e.g., `"high"`). During implication,
 /// the membership function for `term` is sampled over the variable domain and
 /// clipped by the rule activation `alpha`.
+#[derive(Clone)]
 pub struct Consequent {
+    /// Target output variable name this consequent refers to.
     pub var: String,
+    /// Term label within the target variable to be used during implication.
     pub term: String,
     //pub weight: Float,
     //pub imp: Implication,
+}
+
+impl Consequent {
+    /// Validate that `term` matches this consequent's term label.
+    ///
+    /// Returns `Ok(())` if the provided `term` equals `self.term`, otherwise
+    /// returns `FuzzyError::NotFound { space: Term, key: term }`.
+    pub fn get_term(&self, term: String) -> Result<()> {
+        // Simple equality check; does not perform variable lookup.
+        if term == self.term {
+            return Ok(());
+        } else {
+            return Err(FuzzyError::NotFound {
+                space: MissingSpace::Term,
+                key: term,
+            });
+        }
+    }
+
+    /// Validate that `vars` matches this consequent's variable name.
+    ///
+    /// Returns `Ok(())` if the provided `vars` equals `self.var`, otherwise
+    /// returns `FuzzyError::NotFound { space: Var, key: vars }`.
+    pub fn get_vars(&self, vars: String) -> Result<()> {
+        if vars == self.var {
+            return Ok(());
+        } else {
+            return Err(FuzzyError::NotFound {
+                space: MissingSpace::Var,
+                key: vars,
+            });
+        }
+    }
 }
 
 /// Full fuzzy rule pairing an antecedent with one or more consequents.
@@ -81,8 +117,11 @@ pub struct Consequent {
 ///   predicates combined with AND/OR/NOT using the default Min–Max family.
 /// - `consequent` lists one or more THEN-part outputs; each is evaluated over
 ///   its variable domain during implication.
+#[derive(Clone)]
 pub struct Rule {
+    /// IF-part expressed as an `Antecedent` AST over input variables/terms.
     pub antecedent: Antecedent,
+    /// THEN-parts listing output variable/term pairs to implicate.
     pub consequent: Vec<Consequent>,
 }
 
@@ -133,42 +172,104 @@ impl Rule {
     pub fn implicate<KV>(
         &self,
         alpha: Float,
-        vers: &HashMap<KV, Variable>,
+        vars: &HashMap<KV, Variable>,
         sampler: &UniformSampler,
     ) -> Result<HashMap<String, Vec<Float>>>
     where
         KV: Eq + Hash + Borrow<str>,
     {
+        // Accumulate per-output-variable membership samples produced by this rule.
         let mut result_map: HashMap<String, Vec<Float>> = HashMap::new();
 
         for i in 0..self.consequent.len() {
+            let cons = &self.consequent[i];
+            let var_name = cons.var.as_str();
+            let var_ref = vars.get(var_name).ok_or(FuzzyError::NotFound {
+                space: MissingSpace::Var,
+                key: cons.var.clone(),
+            })?;
+
+            let (dom_min, dom_max) = var_ref.domain();
+            // Prepare a buffer of N samples for μ_B(x) clipped by alpha.
             let mut result_vec = vec![0.0; sampler.n];
-
-            let (dom_min, dom_max) = vers
-                .get(&self.consequent[i].var.as_str())
-                .ok_or(FuzzyError::NotFound {
-                    space: MissingSpace::Var,
-                    key: self.consequent[i].var.clone(),
-                })?
-                .domain();
-
             let step = (dom_max - dom_min) / (sampler.n - 1) as Float;
 
             for k in 0..sampler.n {
+                // Uniform grid including both endpoints.
                 let x = dom_min + (k as Float * step);
-                result_vec[k] = vers
-                    .get(&self.consequent[i].var.as_str())
-                    .ok_or(FuzzyError::NotFound {
-                        space: MissingSpace::Var,
-                        key: self.consequent[i].term.clone(),
-                    })?
-                    .eval(&self.consequent[i].term, x)?
-                    .min(alpha);
+                // Evaluate μ_B(x) and apply Mamdani clipping: min(alpha, μ_B(x)).
+                result_vec[k] = var_ref.eval(cons.term.as_str(), x)?.min(alpha);
             }
 
-            result_map.insert(self.consequent[i].var.to_string(), result_vec);
+            // Store samples under the output variable name.
+            result_map.insert(cons.var.clone(), result_vec);
         }
         return Ok(result_map);
         //TODO: Return type should be hashmap<string, Vec<Float>> where string signifies the variable(eg "fanspeed")
+    }
+
+    /// Placeholder: check if a given variable exists within a rule.
+    pub fn get_vars(self) {
+        unimplemented!()
+    }
+
+    /// Validate that this rule references only existing variables and terms.
+    ///
+    /// Ensures all antecedent atoms and consequents point to variables present
+    /// in `vars` and that the referenced term labels exist within those
+    /// variables' term maps. Returns `Ok(())` on success, or `NotFound` errors
+    /// identifying the missing `Var` or `Term`.
+    pub fn validate<KV>(&self, vars: &HashMap<KV, Variable>) -> Result<()>
+    where
+        KV: Eq + Hash + Borrow<str>,
+    {
+        // Validate antecedent atoms reference existing var/term in `vars`.
+        fn validate_antecedent<KV>(ant: &Antecedent, vars: &HashMap<KV, Variable>) -> Result<()>
+        where
+            KV: Eq + Hash + Borrow<str>,
+        {
+            match ant {
+                Antecedent::Atom { var, term } => {
+                    // Variable must exist.
+                    let v = vars.get(var.as_str()).ok_or(FuzzyError::NotFound {
+                        space: MissingSpace::Var,
+                        key: var.clone(),
+                    })?;
+                    // Term must exist on the variable.
+                    if !v.terms.contains_key(term.as_str()) {
+                        return Err(FuzzyError::NotFound {
+                            space: MissingSpace::Term,
+                            key: term.clone(),
+                        });
+                    }
+                    Ok(())
+                }
+                Antecedent::And(a, b) | Antecedent::Or(a, b) => {
+                    // Validate both sides.
+                    validate_antecedent(a, vars)?;
+                    validate_antecedent(b, vars)
+                }
+                Antecedent::Not(a) => validate_antecedent(a, vars),
+            }
+        }
+
+        validate_antecedent(&self.antecedent, vars)?;
+
+        // Validate consequents reference existing var/term.
+        for cons in &self.consequent {
+            let v = vars.get(cons.var.as_str()).ok_or(FuzzyError::NotFound {
+                space: MissingSpace::Var,
+                key: cons.var.clone(),
+            })?;
+            // Consequent term must exist on the target variable.
+            if !v.terms.contains_key(cons.term.as_str()) {
+                return Err(FuzzyError::NotFound {
+                    space: MissingSpace::Term,
+                    key: cons.term.clone(),
+                });
+            }
+        }
+
+        Ok(())
     }
 }

@@ -36,7 +36,7 @@ You can import the library as a dependency in `Cargo.toml` from Git or crates.io
 crates.io:
 ```toml
 [dependencies]
-rust-fuzzylogic = "0.1.1"
+rust-fuzzylogic = "0.2.0"
 ```
 
 Git (unreleased features):
@@ -85,7 +85,7 @@ time:
 
 - [ ] Make some example scripts under examples/, benches/.
 - [ ] Implement comprehensive tests.
-- [ ] Document the system APIs and provide a quick start guide.
+- [x] Document the system APIs and provide a quick start guide.
 - [x] Publish the crate and examples for real-world testing.
 
 ---
