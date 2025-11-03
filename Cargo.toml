@@ -1,6 +1,6 @@
 [package]
 name = "rust-fuzzylogic"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2021"
 description = "Building blocks for authoring fuzzy inference systems in Rust."
 license = "MIT OR Apache-2.0"

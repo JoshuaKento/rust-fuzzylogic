@@ -1,16 +1,16 @@
 # rust-fuzzylogic
 
-
 A Rust crate that provides building blocks for authoring fuzzy inference systems.
 The project aims to make it easy to describe linguistic variables, membership functions, and rule
 bases while keeping room for experimentation with multiple aggregation operators and inference
 strategies.
+This Project is still WIP and any form of feedback or contribution is very much appreciated!
 
 ## Project status
+The repository currently focuses on laying down the module structure of the crate.
+At this stage, it implements Type‑1 fuzzy sets and a Mamdani inference engine. The project also plans to add Takagi–Sugeno inference for Type‑1 sets.
 
-The repository currently focuses on laying down the module structure of the crate. Several source
-files exist as stubs and will be fleshed out in future iterations. Even though the public API is not
-ready for consumption yet, the layout already highlights the intended responsibilities of each
+Several source files exist as stubs and will be fleshed out in future iterations. Even though the public API is not ready for consumption yet, the layout already highlights the intended responsibilities of each
 module:
 
 - `membership`: utilities for defining membership functions (triangular, trapezoidal, gaussian, …).
@@ -23,26 +23,37 @@ module:
 - `mamdani`: reference implementation of a Mamdani-style inference engine.
 - `ops`: configurable T-norm/T-conorm operators (minimum, product, Łukasiewicz, …).
 - `sampler`: sampling utilities for visualisation or numerical integration tasks.
-- `builder`: high-level ergonomics for constructing complete systems.
+- `system`: high-level ergonomics for constructing complete systems.
 - `error`: error types returned by the crate.
 - `prelude`: convenient re-exports for end users.
 
 ## Getting started
 
-Because the implementation is still under construction the crate is not published on crates.io.
-Once the API stabilises you will be able to add it as a Git dependency in your `Cargo.toml`:
+The library is published on crates.io: https://crates.io/crates/rust-fuzzylogic
 
+You can import the library as a dependency in `Cargo.toml` from Git or crates.io:
+
+crates.io:
+```toml
+[dependencies]
+rust-fuzzylogic = "0.2.0"
+```
+
+Git (unreleased features):
 ```toml
 [dependencies]
 rust-fuzzylogic = { git = "https://github.com/joushuakento/rust-fuzzylogic" }
 ```
 
-After the crate reaches its first release the dependency line will become:
+## Documentation
 
-```toml
-[dependencies]
-rust-fuzzylogic = "0.1"
-```
+You can find the documentation of the latest release here:
+https://docs.rs/rust-fuzzylogic/latest
+
+Alternatively, If you are working from the unreleased version in the GitHub repository,
+you can run `cargo doc` locally to generate documentation.
+
+You can see the changelog here: https://github.com/JoshuaKento/rust-fuzzylogic/blob/main/CHANGELOG.md
 
 ## Development
 
@@ -53,11 +64,11 @@ git clone https://github.com/joushuakento/rust-fuzzylogic.git
 cd rust-fuzzylogic
 ```
 
-The crate targets Rust 1.76+ (edition 2024). Standard Cargo commands apply:
+The crate targets Rust 1.74+ (edition 2021). Standard Cargo commands apply:
 
 - `cargo check` — make sure the crate compiles.
 - `cargo fmt` — format the codebase.
-- `cargo test` — run the test suite (currently empty).
+- `cargo test` — run the test suite.
 
 ### Feature flags
 
@@ -69,14 +80,13 @@ time:
 - `parallel` — enable rayon-powered parallel execution for suitable workloads.
 - `ops-minmax`, `ops-product`, `ops-lukasiewicz` — opt into specific operator families.
 - `ops-dyn` — use dynamic dispatch for selecting operators at runtime.
-- `inference-mamdani` — compile the Mamdani inference engine implementation.
 
 ## Roadmap
 
-- [ ] Make some example scripts under examles/, benches/.
+- [ ] Make some example scripts under examples/, benches/.
 - [ ] Implement comprehensive tests.
-- [ ] Document the builder APIs and provide a quick start guide.
-- [ ] Publish the crate and examples for real-world testing.
+- [x] Document the system APIs and provide a quick start guide.
+- [x] Publish the crate and examples for real-world testing.
 
 ---
 

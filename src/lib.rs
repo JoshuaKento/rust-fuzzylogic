@@ -3,7 +3,7 @@ pub mod membership;
 //Temporary Module Decleration to avoid error
 pub mod aggregate;
 pub mod antecedent;
-pub mod builder;
+//pub mod builder;
 pub mod defuzz;
 pub mod error;
 pub mod mamdani;
@@ -15,8 +15,6 @@ pub mod term;
 pub mod variable;
 
 pub mod prelude;
-
-//pub use rust_fuzzylogic::triangular::Triangular;
 
 //type definitions
 #[cfg(all(feature = "f32", feature = "f64"))]

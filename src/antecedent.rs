@@ -26,6 +26,33 @@ pub enum Antecedent {
     Not(Box<Self>),
 }
 
+impl Antecedent {
+    fn iter_atoms<'a>(&'a self) -> impl Iterator<Item = (&'a str, &'a str)> {
+        AtomsIter { stack: vec![self] }
+    }
+}
+
+struct AtomsIter<'a> {
+    stack: Vec<&'a Antecedent>,
+}
+
+impl<'a> Iterator for AtomsIter<'a> {
+    type Item = (&'a str, &'a str);
+    fn next(&mut self) -> Option<Self::Item> {
+        while let Some(node) = self.stack.pop() {
+            match node {
+                Antecedent::Atom { var, term } => return Some((var.as_str(), term.as_str())),
+                Antecedent::And(a, b) | Antecedent::Or(a, b) => {
+                    self.stack.push(b);
+                    self.stack.push(a);
+                }
+                Antecedent::Not(a) => self.stack.push(a),
+            }
+        }
+        None
+    }
+}
+
 /// Evaluate a fuzzy antecedent to a membership degree in [0, 1].
 ///
 /// Uses the default Min–Max operator family (AND=min, OR=max, NOT=1−x).
@@ -61,7 +88,7 @@ where
             })?;
             let x = *input.get(var.as_str()).ok_or(FuzzyError::NotFound {
                 space: crate::error::MissingSpace::Input,
-                key: term.clone(),
+                key: var.clone(),
             })?;
             v.eval(term.as_str(), x)
         }
