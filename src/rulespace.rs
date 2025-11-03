@@ -1,3 +1,15 @@
+#![deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")]
+//! Deprecated: RuleSpace has been superseded by `system::System` and
+//! `system::SystemBuilder`.
+//!
+//! As of 0.2.0, prefer building fuzzy inference systems via the `System`
+//! API, which validates rules on construction and provides a cohesive
+//! builder for variables, terms, and rules.
+//!
+//! This module remains for backward compatibility and will be removed in a
+//! future release.
+//!
+
 //! RuleSpace: orchestrate aggregation and defuzzification for a rule base.
 //!
 //! `RuleSpace` bundles the fuzzy variables, rule set, and the intermediate
@@ -161,14 +173,3 @@ impl RuleSpace {
     //is there a nessecity?
     //pub fn consequent_keys() {}
 }
-#![deprecated(since = "0.2.0", note = "Use system::System and SystemBuilder instead")] 
-//! Deprecated: RuleSpace has been superseded by `system::System` and
-//! `system::SystemBuilder`.
-//!
-//! As of 0.2.0, prefer building fuzzy inference systems via the `System`
-//! API, which validates rules on construction and provides a cohesive
-//! builder for variables, terms, and rules.
-//!
-//! This module remains for backward compatibility and will be removed in a
-//! future release.
-//!
